@@ -1,7 +1,7 @@
 CC := gcc
 LD := ld
-OBJDUMP :=objdump
-OBJCOPY :=objcopy
+OBJDUMP := objdump
+OBJCOPY := objcopy
 CONFIGS := -DCONFIG_HEAP_SIZE=4096
 
 CFLAGS := -O0 -ffreestanding -fno-pie -fno-stack-protector -g3 -Wall $(CONFIGS)
@@ -14,10 +14,7 @@ OBJS = \
 	boot.o \
 	kernel_main.o \
 	list.o \
-	blinky.o \
-	//serial.o ADDED IN CLASS W NEIL? This is how to add new src file
-
-
+	gpio.o \
 
 
 OBJ = $(patsubst %,$(ODIR)/%,$(OBJS))
@@ -49,7 +46,7 @@ debug:
 	TERM=xterm gdb -x gdb_init_prot_mode.txt
 
 run:
-	qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
+	qemu -machine raspi3 -kernel kernel8.img -hda rootfs.img -serial null -serial stdio -monitor none -nographic -k en-us
 
 disassemble:
 	$(OBJDUMP) -D kernel8.elf
@@ -62,3 +59,4 @@ rootfs.img:
 	sudo mkdir /mnt/disk/bin
 	sudo mkdir /mnt/disk/etc
 	sudo umount /mnt/disk
+
