@@ -6,6 +6,9 @@ void bss_to_zero();
 extern int __bss_start;
 extern int __bss_end;
 
+#include "list.h"
+#include "blinky.h"
+
 int global;
 
 struct list_element b = {NULL,NULL, 1};
@@ -16,12 +19,29 @@ struct list_element *head = &a;
 struct list_element* list = &a;
 
 void kernel_main(){
-	bss_to_zero();
-	list_add(list, &b);
-	list_add(list, &c);
-	list_remove(head, 1);
-	while (1){}
+//	bss_to_zero();
+//	list_add(list, &b);
+//	list_add(list, &c);
+//	list_remove(head, 1);
+//	while (1){}
+
+
+//for blinky
+	led_init();
+	while (1){
+		led_on();
+		delay();
+		led_off();
+		delay();
+	}
 }
+
+//unsigned long get_timer_count() {
+//	unsigned long *timer_count_register = 0x3f003004;
+//	return *timer_count_register;
+//}
+
+
 
 //fromt office hours
 void bss_to_zero(){
@@ -32,3 +52,11 @@ void bss_to_zero(){
 		x++;
 	}
 }
+
+//void kernel_main() {
+	//int *mu_io_reg = ;
+
+	//while(1){
+
+
+
