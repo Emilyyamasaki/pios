@@ -1,7 +1,7 @@
 CC := gcc
 LD := ld
-OBJDUMP := objdump
-OBJCOPY := objcopy
+OBJDUMP :=objdump
+OBJCOPY :=objcopy
 CONFIGS := -DCONFIG_HEAP_SIZE=4096
 
 CFLAGS := -O0 -ffreestanding -fno-pie -fno-stack-protector -g3 -Wall $(CONFIGS)
@@ -14,8 +14,9 @@ OBJS = \
 	boot.o \
 	kernel_main.o \
 	list.o \
-	serial.o \
 	blinky.o \
+	//serial.o ADDED IN CLASS W NEIL? This is how to add new src file
+
 
 
 
@@ -42,7 +43,6 @@ clean:
 	rm -f rootfs.img
 	rm -f kernel8.img
 	rm -f kernel8.elf
-	killall screen
 
 debug:
 	screen -S qemu -d -m qemu-system-aarch64 -machine raspi3 -kernel kernel8.img -hda rootfs.img -S -s -serial null -serial stdio -monitor none -nographic -k en-us 
@@ -62,4 +62,3 @@ rootfs.img:
 	sudo mkdir /mnt/disk/bin
 	sudo mkdir /mnt/disk/etc
 	sudo umount /mnt/disk
-
